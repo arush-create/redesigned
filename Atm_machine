@@ -1,0 +1,272 @@
+import java.util.*;
+public class ATM
+{
+//The values below are the default Registered numbers and password
+//There are also the initial money each account already have
+public static Scanner sc = new Scanner(System.in);
+public static boolean verified = false;
+private static long userEnteredAccountNumber=0;
+public static void introduction(){
+//Variables to cause time delay in loop
+int x = 0,y = 100 , z = -1;
+System.out.println(&quot;********************************************************* &quot;);
+System.out.println(&quot;*&quot;+&#39;\t&#39;+ &#39;\t&#39; +&quot; ATM &quot;+&#39;\t&#39;+&#39;\t&#39;+&#39;\t&#39;+&quot;
+*&quot;);
+System.out.println(&quot;*&quot;+&#39;\t&#39;+ &quot; STUDENT NAME : ARUSH SACHETI
+&quot;+&#39;\t&#39;+&#39;\t&#39;+&#39;\t&#39;+&quot; *&quot;);
+System.out.println(&quot;*&quot;+&#39;\t&#39;+&#39;\t&#39;+ &quot; ROLL NO : 09
+&quot;+&#39;\t&#39;+&#39;\t&#39;+&#39;\t&#39;+&#39;\t&#39;+&#39;\t&#39;+&#39;\t&#39;+&#39;\t&#39;+&quot; *&quot;);
+System.out.println(&quot;*&quot;+&#39;\t&#39;+ &quot; ACADEMIC YEAR : 2018 -
+2019&quot;+&#39;\t&#39;+&#39;\t&#39;+&#39;\t&#39;+&quot; *&quot;);
+System.out.println(&quot;********************************************************* &quot;);
+//Time delay loop
+for(double i = 0; i&lt;=1000000000 ; i++)
+{
+x++;
+y*=y*2;
+int d = y * x;
+int s = z*x*y;
+int e = y + z * x;
+e++;
+double f = y*x*y*y*y + x - z;
+double h = y*y*f*y*y + x - z;
+double j = y*y*y*y*y + x - z;
+}
+System.out.println(&#39;\u000C&#39;);
+//To clear output screen
+}
+public static void main(String[] args)
+{
+introduction();
+AtmMachine atmMachine = new AtmMachine();
+//This main function calls all other functions
+
+
+
+while (true)
+{
+System.out.println(&quot;XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXX&quot;);
+System.out.println((&quot;Welcome to the National Bank ATM&quot;));
+System.out.println((&quot;We hope you have a good experience&quot;));
+System.out.println(&quot;To continue please enter your bank account number
+below&quot;);
+while(true) {
+try {
+sc = new Scanner(System.in);
+userEnteredAccountNumber = sc.nextLong();
+break;
+} catch (Exception NumberFormatException) {
+System.out.println(&quot;You haven&#39;t entered valid account number,
+please try again&quot;);
+System.out.println(&quot;Enter the data again&quot;);
+continue;
+}
+}
+verified = atmMachine.verification(userEnteredAccountNumber);
+int logoutFlag=0;
+while (verified == true)
+{
+System.out.println(&quot;_______________________________________________________________
+_____&quot;);
+System.out.println((&quot;Welcome user.Please Select the operation you
+want to carry out&quot;));
+System.out.println(&quot;1.Deposit money&quot;);
+System.out.println(&quot;2.Withdraw money&quot;);
+System.out.println(&quot;3.Transfer money to another account&quot;);
+System.out.println(&quot;4.Change the password&quot;);
+System.out.println(&quot;5.To check balance&quot;);
+System.out.println(&quot;6.TO LOGOUT&quot;);
+int choice = 0;
+try{
+sc = new Scanner(System.in);
+choice=sc.nextInt();
+}
+catch (Exception NumberFormatException)
+{
+System.out.println(&quot;You haven&#39;t entered valid number&quot;);
+continue;
+}
+switch (choice) {
+case 1:
+atmMachine.deposit();
+
+
+
+break;
+case 2:
+atmMachine.withdraw();
+break;
+case 3:
+atmMachine.transferMoney();
+break;
+case 4:
+atmMachine.passwordChange();
+break;
+case 5:
+atmMachine.checkBalance();
+break;
+case 6:
+System.out.println(&quot;You have chose to logout. thank you&quot;);
+logoutFlag=1;
+break;
+default:
+System.out.println(&quot;Enter a valid choice&quot;);
+break;
+}
+if (logoutFlag==1)
+break;
+}
+//If one logs out after changing the password that&#39;s why it should be
+changed to false
+verified =false;
+}
+} // end of main()
+}
+
+
+
+AtmMachine.java
+public boolean verification(long userEnteredAccountNumber) {
+//This function checks if the Registered number and password is correct or
+not.
+for (int counter = 0; counter &lt;= registeredAccount.length - 1; counter++) {
+if (registeredAccount[counter] == userEnteredAccountNumber) {
+System.out.println(&quot;enter the four digit pin&quot;);
+int userEnteredPassword = 0;
+try {
+userEnteredPassword = sc.nextInt();
+} catch (Exception NumberFormatException) {
+sc = new Scanner(System.in);
+System.out.println(&quot;Please enter four digit pin&quot;);
+continue;
+}
+if (registeredPassword[counter] == userEnteredPassword) {
+System.out.println(&quot;login successful&quot;);
+finalCounter = counter;
+return true;
+}
+}
+}
+if (verified != true)
+System.out.println(&quot;Data entered is not valid&quot;);
+return false;
+}
+public static void deposit() {
+//To deposit more money inside the account
+System.out.println(&quot;Your balance: &quot; + defaultMoney[finalCounter]);
+System.out.println(&quot;You have chosen to deposit money &quot;);
+System.out.println(&quot;Please enter the amount to be deposited&quot;);
+int deposit = 0;
+try {
+deposit = sc.nextInt();
+} catch (Exception NumberFormatException) {
+sc = new Scanner(System.in);
+System.out.println(&quot;You haven&#39;t entered valid number, hence we couldn&#39;t
+deposit money&quot;);
+return;
+}
+defaultMoney[finalCounter] = defaultMoney[finalCounter] + deposit;
+System.out.println(&quot;new balance:&quot; + defaultMoney[finalCounter]);
+}
+public static void withdraw() {
+
+
+
+//To remove the money from the account
+System.out.println(&quot;Your balance: &quot; + defaultMoney[finalCounter]);
+System.out.println(&quot;You have chosen to withdraw money &quot;);
+System.out.println(&quot;Please enter the amount to be withdrawn&quot;);
+int withdrawn = 0;
+try {
+sc = new Scanner(System.in);
+withdrawn = sc.nextInt();
+} catch (Exception NumberFormatException) {
+System.out.println(&quot;You haven&#39;t entered valid number, we couldn&#39;t withdraw
+money&quot;);
+return;
+}
+defaultMoney[finalCounter] = defaultMoney[finalCounter] - withdrawn;
+if (defaultMoney[finalCounter] &lt; 0) {
+System.out.println(&quot;Insufficient money&quot;);
+defaultMoney[finalCounter] = defaultMoney[finalCounter] + withdrawn;
+}
+System.out.println(&quot;new balance:&quot; + defaultMoney[finalCounter]);
+}
+public static void transferMoney()
+//To move money into another registered account via registered Account number
+{
+System.out.println(&quot;You have chosen to transfer money to another account&quot;);
+System.out.println(&quot;Your current balance is:&quot; + defaultMoney[finalCounter]);
+System.out.println(&quot;Enter the registered number of the recipient to who the
+money is to be transfered&quot;);
+long registeredNumberOfReciever = 0L;
+int transferedamount = 0;
+try {
+sc = new Scanner(System.in);
+// Scanner sc = new Scanner(System.in);
+registeredNumberOfReciever = sc.nextLong();
+System.out.println(&quot;Enter the amount to be transferred&quot;);
+transferedamount = sc.nextInt();
+} catch (Exception NumberFormatException) {
+System.out.println(&quot;You haven&#39;t entered valid amount, we couldn&#39;t transfer
+the money&quot;);
+return;
+}
+if (defaultMoney[finalCounter] - transferedamount &gt;= 0) {
+boolean test = false;
+int arrayIndexOfReceiverNumber = 3;
+for (int i = 0; i &lt;= 2; i++) {
+if (registeredAccount[i] == registeredNumberOfReciever) {
+arrayIndexOfReceiverNumber = i;
+test = true;
+break;
+}
+}
+
+
+if (test == true) {
+defaultMoney[finalCounter] = defaultMoney[finalCounter] -
+transferedamount;
+defaultMoney[arrayIndexOfReceiverNumber] =
+defaultMoney[arrayIndexOfReceiverNumber] + transferedamount;
+System.out.println(&quot;Your new balance:&quot; + defaultMoney[finalCounter]);
+} else
+System.out.println(&quot;Your recipient Account number wasn&#39;t not found&quot;);
+} else
+System.out.println(&quot;Insufficient Balance in Account&quot;);
+}
+public static void passwordChange()
+//To change the password of the Registered Account number
+{
+System.out.println(&quot;You have chosen to change your password&quot;);
+System.out.println(&quot;To continue please enter the old password&quot;);
+int initialPassword = 0;
+try {
+sc = new Scanner(System.in);
+initialPassword = sc.nextInt();
+} catch (Exception NumberFormatException) {
+System.out.println(&quot;Invalid password&quot;);
+}
+if (initialPassword == registeredPassword[finalCounter]) {
+System.out.println(&quot;Enter new four digit password&quot;);
+int finalPassword = 0;
+try {
+sc = new Scanner(System.in);
+finalPassword = sc.nextInt();
+} catch (Exception NumberFormatException) {
+System.out.println(&quot;Invalid password&quot;);
+}
+if (String.valueOf(finalPassword).length() == 4) {
+registeredPassword[finalCounter] = finalPassword;
+System.out.println(&quot;Password changed&quot;);
+} else
+System.out.println(&quot;Please enter four digit password&quot;);
+} else
+System.out.println(&quot;Please enter correct password&quot;);
+}
+public static void checkBalance() {
+//To check the balance of the account
+System.out.println(&quot;You have chosen to check you balance&quot;);
+System.out.println(&quot;Your current balance is :&quot; + defaultMoney[finalCounter]);
+}
